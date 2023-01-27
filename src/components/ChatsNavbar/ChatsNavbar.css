@@ -1,0 +1,54 @@
+.chats-navbar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 1% 1% 0.5% 0.5%;
+    border-bottom: 5px solid green;
+    background-color: greenyellow;
+    border-left: 5px solid white;
+    border-right: 5px solid white;
+    height: 10vh;
+}
+
+.chats-navbar p {
+    padding: 0;
+    margin: 0;
+}
+
+.chats-navbar .pic {
+    position: relative;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.chats-navbar .info {
+    margin-left: 1%;
+    cursor: pointer;
+}
+
+.chats-navbar .info-button {
+    margin-left: auto;
+    border: 0;
+    font-size: 1.2rem;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.chats-navbar p {
+    padding: 0;
+    margin: 0;
+}
+
+.chats-navbar p.title {
+    font-family: 'Solitreo', cursive;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.chats-navbar p.message {
+    font-size: 0.8rem;
+}

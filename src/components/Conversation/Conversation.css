@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Solitreo&display=swap');
+
+.conversation {
+    padding: 5% 2%;
+    margin: 0;
+    border-bottom: 2px solid black;
+    display: flex;
+    width: 100%;
+    cursor: pointer;
+}
+
+.conversation:hover {
+    background-color: lightgrey;
+}
+
+.conversation.highlight {
+    background-color: skyblue;
+}
+
+.conversation .pic {
+    position: relative;
+    margin: 0;
+    border: 0;
+}
+
+.conversation .messager {
+    margin-left: 3%;
+}
+
+.conversation .time {
+    position: relative;
+    margin-left: auto;
+    border: 0;
+}
+
+.pic .online {
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    height: 15px;
+    width: 15px;
+}
+
+.conversation p {
+    padding: 0;
+    margin: 0;
+}
+
+.conversation p.title {
+    font-family: 'Solitreo', cursive;
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 0.5;
+}
+
+.conversation p.date {
+    font-size: 0.7rem;
+    line-height: 1;
+    font-weight: 700;
+    text-align: right;
+}
+
+.conversation p.message {
+    font-size: 0.8rem;
+}

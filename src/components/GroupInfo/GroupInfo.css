@@ -1,0 +1,180 @@
+.group-info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 90vh;
+    align-items: center;
+    background-color: skyblue;
+}
+
+.group-info .close-info {
+    font-size: 1.8rem;
+    color: grey;
+    cursor: pointer;
+    align-self: flex-start;
+    margin-left: 3%;
+}
+
+.group-info .close-info:hover {
+    color: black;
+}
+
+.group-info .group-pic {
+    margin-bottom: 1%;
+    position: relative;
+    overflow: hidden;
+}
+
+.group-info .group-pic .edit-pic-file {
+    position: absolute;
+    height: 500px;
+    width: 500px;
+    background-color: transparent;
+    left: -50%;
+    opacity: 100%;
+    opacity: 0%;
+    cursor: pointer;
+}
+
+
+.group-info .group-pic .edit-pic {
+    position: absolute;
+    height: 150px;
+    width: 150px;
+    background-color: grey;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    opacity: 0%;
+    overflow: hidden;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+}
+
+.group-info .group-pic .edit-pic:hover {
+    opacity: 80%;
+}
+
+.group-info .group-created {
+    font-size: 0.9rem;   
+    text-align: center;
+    margin-bottom: 3%;
+}
+
+.group-info .group-name {
+    font-family: 'Sofia Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-align: left;
+    margin-bottom: 3%;
+    position: relative;
+}
+
+.group-info .group-name .group-name-input {
+    font-size: 1.2rem;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.group-info .group-name .badge {
+    font-size: 0.7rem;
+}
+
+.group-info .group-name .save {
+    cursor: pointer;
+}
+
+.group-info .group-name .save:hover {
+    color: green;
+}
+
+.group-info .group-members-title {
+    color: green;
+    font-size: 0.9rem;
+    font-weight: 700;
+    width: 80%;
+    margin-bottom: 1%;
+    text-align: center;
+    border-bottom: 1px solid black;
+    position: relative;
+}
+
+.group-info .add-member {
+    cursor: pointer; 
+    padding: 2% 10%;
+    border-radius: 20px;
+}
+
+.group-info .add-member:hover {
+    background-color: white;  
+    color: blue; 
+}
+
+.group-info .group-members {
+    height: 30%;
+    width: 90%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.group-members::-webkit-scrollbar {
+    width: 5px;
+}
+
+.group-members::-webkit-scrollbar-track {
+    background: skyblue;
+}
+
+.group-members::-webkit-scrollbar-thumb {
+    background: grey;
+}
+
+.group-members::-webkit-scrollbar-thumb:hover {
+    background: black;
+}
+
+.group-members .group-member {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    margin-top: 5%;
+    margin-left: 5%;
+    transition: transform 0.5s ease-in-out;
+    width: 90%;
+}
+
+.group-members .group-member:hover {
+    font-weight: 700;
+}
+
+.group-members .group-member .remove-member{
+    margin-right: 2%;
+    transition: transform 0.2s ease-in-out;
+}
+
+.group-members .group-member .remove-member:hover{
+    color: red;
+    transform: scale(1.5);
+}
+
+.group-members .group-member .group-member-name {
+    margin-left: 2%;
+}
+
+.group-info .leave-group {
+    width: 80%;
+    cursor: pointer;
+    background-color: red;
+    border-radius: 20px;
+    padding: 2%;
+    transition: font-size 0.5s ease-in-out;
+    text-align: center;
+}
+
+.group-info .leave-group:hover {
+    font-size: 1.1rem;
+    font-weight: 700;
+}

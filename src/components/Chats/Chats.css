@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+.chats-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 90vh;
+}
+
+.chats-container .empty-chats {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.chats-container .chats {
+    background-image: url("../../../public/images/chat-background.jpg");
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.chats-container .chats::-webkit-scrollbar {
+    width: 7px;
+}
+
+.chats-container .chats::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.chats-container .chats::-webkit-scrollbar-thumb {
+    background: orange;
+}
+
+.chats-container .chats::-webkit-scrollbar-thumb:hover {
+    background: orangered;
+}
+
+.chats .chat-bubble {
+    max-width: 70%;
+    min-width: 10%;
+    margin: 1% 0;
+    padding: 1%;
+    padding-right: 2%;
+    padding-bottom: 2%;
+    border-radius: 15px;
+    position: relative;
+    line-height: 1;
+    display: flex;
+}
+
+.chats .messager-info {
+    display: flex;
+    margin-top: 1%;
+    max-width: 70%;
+    margin-left: 1%;
+}
+
+.chat-bubble.sender {
+    margin-left: auto;
+    margin-right: 5px;
+    background-color: green;
+    color: white;
+    border-top-right-radius: 0;
+}
+
+.chat-bubble.receiver  {
+    margin-right: auto;
+    margin-left: 5px;
+    background-color: orange;
+    border-top-left-radius: 0;
+}
+
+.chat-bubble .time {
+    position: absolute;
+    font-size: 0.6rem;
+    font-weight: 700;
+    bottom: 1px;
+    right: 5px;
+}
+
+.chats-container .send-message {
+    height: 10%;
+    width: 100%;
+    background-color: lightgrey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1%;
+}
+
+.chats-container .send-message .send{
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: all 0.2s ease-out;
+}
+
+.chats-container .send-message .send:hover{
+    color: orangered;
+    font-size: 1.8rem;
+}
+
+.chats-container .send-message .message{
+    border: none;
+    outline: none;
+    resize: none;
+    width: 80%;
+    height: 75%;
+    border-radius: 10px;
+    padding: 1%;
+}
+
+.message::-webkit-scrollbar {
+    width: 5px;
+}
+
+.message::-webkit-scrollbar-track {
+    background: white;
+}
+
+.message::-webkit-scrollbar-thumb {
+    background: green;
+}
+

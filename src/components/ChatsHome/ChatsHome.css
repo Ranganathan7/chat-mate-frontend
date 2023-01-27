@@ -1,0 +1,22 @@
+.chats-home-container {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+}
+
+.left.col-3 {
+    padding-right: 0;
+}
+
+.mid.col {
+    padding-left: 0;
+}
+
+.mid.col.right {
+    padding-right: 0;
+}
+
+.right.col-3 {
+    padding: 0;
+    margin: 0;
+}

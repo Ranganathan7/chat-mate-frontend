@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Monoton&display=swap');
+
+.home-container {
+    background-image: url("../../../public/images/join-background.jpg");
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2%;
+    background-attachment: fixed;
+    overflow: scroll;
+}
+
+.home-container::-webkit-scrollbar {
+    display: none;
+}
+
+.home-container::-webkit-scrollbar-track {
+    display: none
+}
+
+.home-container::-webkit-scrollbar-thumb {
+    display: none;
+}
+
+.home-container .link {
+    text-decoration: none;
+}
+
+.home-container .welcome-container {
+    font-family: 'Patrick Hand', cursive;
+    text-align: center;
+    font-size: 1.2rem;
+    color: white;
+    width: 45%;
+}
+
+.home-container .welcome-container:hover {
+    text-shadow: 0 0 15px red;
+}
+
+.home-container .logo-container {
+    margin-bottom: 3%;
+}
+
+.home-container .chat-mate-logo {
+    transition: all 0.5s ease-in-out;
+}
+
+.home-container .chat-mate-logo:hover {
+    transform: scale(1.2);
+}
+
+.home-container .chat-mate {
+    font-family: 'Black Ops One', cursive;
+    color: white;
+    font-size: 4rem;
+}
+
+.home-container .cursor {
+    animation: blink 1.3s infinite;
+    font-family: 'Black Ops One', cursive;
+    color: white;
+    font-size: 4rem;
+}
+
+.home-container .chat-mate:hover {
+    font-family: 'Monoton', cursive;
+}
+
+@keyframes blink {
+    0% {color: white}
+    25% {color: transparent}
+    50% {color: white}
+    75% {color: transparent}
+    100% {color: white}
+}
+
+.home-container .login, .signup {
+    font-family: 'Patrick Hand', cursive;
+}
+
+.home-container .btn-success, .btn-warning {
+    margin-top: 15%;
+    transition: all 0.5s ease-in-out;
+    font-size: 1.6rem;
+}
+
+.home-container .btn:hover {
+    transform: scale(1.2);
+}
+
+

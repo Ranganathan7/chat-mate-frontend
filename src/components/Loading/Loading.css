@@ -1,0 +1,9 @@
+.loading {
+    background-image: url("../../../public/images/loading.gif");
+    height: 50vh;
+    width: 50vw;
+    background-position: center;
+    background-size: cover;
+    margin: auto;
+    margin-top: 10%;
+}

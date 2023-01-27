@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Monoton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+.navbar-container {
+    width: 100%;
+    height: 10%;
+    background-color: black;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-container .image-container {
+    height: 90%;
+    width: 4%;
+    transition: all 1s ease-in-out;
+}
+
+.navbar-container .image-container:hover {
+    transform: scale(0.7)
+}
+
+.navbar-container .chat-mate {
+    margin-left: 1%;
+    color: white;
+    font-family: 'Black Ops One', cursive;
+    font-size: 200%;
+}
+
+.navbar-container .chat-mate-text {
+    transition: all 0.3s ease-in-out;
+    cursor: default;
+}
+
+.navbar-container .chat-mate-text:hover {
+    font-family: 'Permanent Marker', cursive;
+    color: orange;
+}
+
+.navbar-container .logout {
+    margin-left: auto;
+    font-family: 'Patrick Hand', cursive;
+}
+

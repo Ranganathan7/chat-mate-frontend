@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalam&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+.chat-mate-container {
+    height: 100vh;
+    width: 100vw;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    overflow: scroll;
+}
+
+.chat-mate-container::-webkit-scrollbar {
+    display: none;
+}
+
+.chat-mate-container::-webkit-scrollbar-track {
+    display: none
+}
+
+.chat-mate-container::-webkit-scrollbar-thumb {
+    display: none;
+}
+
+.chat-mate-container.background {
+    background-image: url("../../../public/images/home-background.jpg");
+}
+
+.chat-mate-container .content-container {
+    height: 90%;
+    width: 50%;
+    z-index: 2;
+}
+
+.chat-mate-container .logo-container {
+    position: relative;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
+
+.chat-mate-container .chat-mate-text {
+    position: absolute;
+    bottom: 35%;
+    left: 42%;
+    width: 35%;
+    height: 30%;
+    font-family: 'Kalam', cursive;
+}
+
+.chat-mate-container .chat-mate-button {
+    position: absolute;
+    bottom: 15%;
+    left: 43%;
+    cursor: pointer;
+}
+
+.chat-mate-container .chat-mate-button::before {
+    position: absolute;
+    content: 'JOIN!';
+    font-family: 'Patrick Hand', cursive;
+    font-size: 2rem;
+    top: 15%;
+    left: 10%;
+}
+
+.chat-mate-container .chat-mate-button:hover {
+    color: white;
+}
+
+.chat-mate-container .hidden {
+    visibility: hidden;
+}
+
+.chat-mate-container .image-1 {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.chat-mate-container .image-2 {
+    position: absolute;
+    text-align: right;
+    right: 0;
+    bottom: 0;
+}
+
+.chat-mate-container .link-to-chat-mate {
+    text-decoration: none;
+    color: black;
+}
+
+.chat-mate-container .link-to-chat-mate:hover {
+    color: white;
+}
+
+

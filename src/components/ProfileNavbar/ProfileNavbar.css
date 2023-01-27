@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:ital@1&display=swap');
+
+.profile-navbar {
+    width: 100%;
+    align-items: center;
+    padding: 2%;
+    background-color: greenyellow;
+    border: 0;
+    margin: 0;
+    height: 10vh;
+    border-bottom: 10px solid green;
+    color: black;
+}
+
+.profile-navbar .pic {
+    border: 1px solid orange;
+    transition: all 0.5s ease-in-out;
+}
+
+.profile-navbar .pic:hover {
+    border: 1px solid green;
+    transform: scale(1.2);
+}
+
+.profile-navbar .user-profile {
+    cursor: pointer;
+}
+
+.profile-navbar .user-info {
+    font-family: 'Sofia Sans', sans-serif;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.profile-navbar .user-info:hover {
+    color: red;
+}
+
+.profile-navbar .search-user {
+    cursor: pointer;
+    margin-left: auto;
+    transition: all 0.5s ease-in-out;
+}
+
+.profile-navbar .search-user:hover {
+    font-size:1.5rem;
+    color: red;
+}
+
+.profile-navbar .new-group {
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+.profile-navbar .new-group:hover {
+    font-size:1.5rem;
+    color: red;
+}
+
+.profile-navbar .back {
+    font-weight: 700;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+.profile-navbar .back:hover {
+    transform: scale(1.2);
+}
+
+.profile-navbar .title {
+    font-family: 'Sofia Sans', sans-serif;
+    font-weight: 800;
+    transition: all 0.5s ease-in-out;
+}

@@ -1,0 +1,67 @@
+.home-container .profile-picture {
+    height: 80%;
+    width: 50%;
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    border: 3px solid white;
+    position: relative;
+    overflow: hidden;
+}
+
+.home-container .profile {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    height: 50%;
+    gap: 5%;
+}
+
+.file-upload {
+    outline: none;
+    color: transparent;
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    padding-left: 42%;
+    color: white;
+    background: grey;
+    opacity: 70%;
+}
+
+.file-upload:hover {
+    opacity: 100%;
+}
+
+.file-upload::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+.file-upload::before {
+    content: '\f030';
+    font-family: fontAwesome;
+    font-size: 1.5rem;
+}
+
+.login-container .popover {
+    background-color: lightyellow;
+    position: absolute;
+    top: 0%;
+    left: 101%;
+    width: 100%;
+    border: none;
+}
+
+.login-container .popover-text {
+    color: red;
+    margin: 0;
+    padding: 1%;
+}
+
+.login-container .user-name {
+    position: relative;
+}
+
+
+
+

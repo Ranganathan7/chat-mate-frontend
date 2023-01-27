@@ -1,0 +1,81 @@
+.edit-profile {
+    display: flex;
+    height: 85vh;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+    background-color: black;
+    color: white;
+}
+
+.edit-profile .profile-pic {
+    margin: 5% 0;
+    position: relative;
+    cursor: pointer;
+}
+
+.edit-profile .profile-pic .pic {
+    border: 2px solid white;
+}
+
+.edit-profile .profile-pic .edit-pic-file {
+    position: absolute;
+    height: 500px;
+    width: 500px;
+    background-color: transparent;
+    left: -50%;
+    opacity: 100%;
+    opacity: 0%;
+    cursor: pointer;
+}
+
+
+.edit-profile .profile-pic .edit-pic {
+    position: absolute;
+    height: 150px;
+    width: 150px;
+    background-color: grey;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    opacity: 0%;
+    overflow: hidden;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+}
+
+.edit-profile .profile-pic .edit-pic:hover {
+    opacity: 80%;
+}
+
+
+.edit-profile .user-name {
+    margin: 1% 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-profile .user-name .name-input{
+    margin: 10% 0;
+    position: relative;
+}
+
+.edit-profile .user-name .edit-button{
+    margin-left: 10%;
+    cursor: pointer;
+}
+
+.edit-profile .user-name .edit-button:hover{
+    color: red;
+}
+
+.edit-profile .user-name .save-button{
+    margin-left: 10%;
+    cursor: pointer;
+}
+
+.edit-profile .user-name .save-button:hover{
+    color: green;
+}
