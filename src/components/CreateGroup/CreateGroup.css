@@ -1,0 +1,136 @@
+.create-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 80vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.create-group::-webkit-scrollbar {
+    width: 5px;
+}
+
+.create-group::-webkit-scrollbar-track {
+    background: white;
+}
+
+.create-group::-webkit-scrollbar-thumb {
+    background: orange;   
+}
+
+.create-group::-webkit-scrollbar-thumb:hover {
+    background: orangered;
+}
+
+.create-group .group-name-pic {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5% 0;
+}
+
+.create-group .group-name-pic .pic {
+    position: relative;
+}
+
+.create-group .group-name-pic .pic .edit-pic-file {
+    position: absolute;
+    height: 500px;
+    width: 500px;
+    background-color: transparent;
+    left: -50%;
+    opacity: 100%;
+    opacity: 0%;
+    cursor: pointer;
+}
+
+.create-group .group-name-pic .pic .edit-pic {
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    background-color: grey;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    opacity: 0%;
+    overflow: hidden;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+}
+
+.create-group .group-name-pic .pic .edit-pic:hover {
+    opacity: 80%;
+}
+
+.create-group .group-name-pic .name {
+    position: relative;
+    margin-left: 1%;
+}
+
+.create-group .group-name-pic .name .badge {
+    font-size: 0.8rem;
+    padding: 2%;
+}
+
+.create-group .add-member {
+    width: 90%;
+}
+
+.create-group .add-member .search-users {
+    height: 60vh;
+    background-color: white;
+}
+
+.create-group .add-member .search-users .users {
+    height: 100%;
+}
+
+.create-group .create-group-button {
+    width: 80%;
+    text-align: center;
+    cursor: pointer;
+    background-color: skyblue;
+    border-radius: 15px;
+    padding: 1%;
+    margin: 5% 0;
+    font-size: 1.2rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.create-group .create-group-button:hover {
+    transform: scale(1.1);
+    background-color: green;
+    color: white;
+}
+
+.create-group .added-members {
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.create-group .added-members .member {
+    padding: 2%;
+    background-color: lightcoral;
+    cursor: default;
+    margin: 1% 2%;
+    border-radius: 15px;
+}
+
+.create-group .added-members .member:hover {
+    background-color: green;
+    color: white;
+}
+
+.create-group .added-members .member .remove {
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.create-group .added-members .member .remove:hover {
+    color: red;
+}

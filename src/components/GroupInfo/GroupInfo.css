@@ -172,6 +172,7 @@
     padding: 2%;
     transition: font-size 0.5s ease-in-out;
     text-align: center;
+    margin-top: 2%;
 }
 
 .group-info .leave-group:hover {

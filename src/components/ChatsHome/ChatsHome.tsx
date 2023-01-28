@@ -93,7 +93,7 @@ const ChatsHome: React.FC = () => {
                         showCreateGroup={showCreateGroup} 
                     />
                     {showEditProfile && <EditProfile />}
-                    {showCreateGroup && <CreateGroup />}
+                    {showCreateGroup && <CreateGroup setShowCreateGroup={setShowCreateGroup}/>}
                     {showSearch && <SearchUser setShowSearch={setShowSearch} />}
                     {!showEditProfile && !showCreateGroup && !showSearch && <Conversations />}
                 </div>

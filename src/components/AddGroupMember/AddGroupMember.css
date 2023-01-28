@@ -1,0 +1,39 @@
+.add-group-member-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 90vh;
+    align-items: center;
+    background-color: skyblue;
+}
+
+.add-group-member-container .go-back {
+    width: 100%;
+    padding: 5%;
+    height: 9vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+    background-color: greenyellow;
+    border-bottom: 5px solid green;
+}
+
+.add-group-member-container .go-back .back {
+    color: grey;
+    cursor: pointer;
+    margin-right: auto;
+    transition: all 0.2s ease-in-out;
+}
+
+.add-group-member-container .go-back .back:hover {
+    color: black;
+    transform: scale(1.2);
+}
+
+.add-group-member-container .go-back .text {
+    color: black;
+    margin-right: auto;
+    font-family: 'Sofia Sans', sans-serif;
+    font-weight: 700;
+}

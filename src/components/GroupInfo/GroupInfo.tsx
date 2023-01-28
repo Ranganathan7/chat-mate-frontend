@@ -16,6 +16,8 @@ import Tooltip from "@mui/material/Tooltip";
 import { deleteGroupRequest } from "../apiCalls/deleteGroup.request";
 import { editGroupPicRequest } from "../apiCalls/editGroupPic.request";
 import { editGroupNameRequest } from "../apiCalls/editGroupName.request";
+import AddGroupMember from "../AddGroupMember/AddGroupMember";
+import ConversationType from "../../types/conversation.type";
 
 interface Props {
 	showGroupInfo: React.Dispatch<React.SetStateAction<boolean>>;
@@ -39,11 +41,12 @@ const GroupInfo: React.FC<Props> = ({
 	const dispatch = useDispatch();
     const [name, setName] = useState<string>(conversation?.conversationName as string)
 	const [showAddGroupMember, setShowAddGroupMember] = useState<boolean>(false);
-    const [enableEditing, setEnableEditing] = useState<boolean>(false)
 
 	useEffect(() => {
 		if (conversation?.conversationName === "") showUserInfo(true);
 		else showUserInfo(false);
+		setName(conversation?.conversationName as string)
+		setShowAddGroupMember(false)
 
 		// eslint-disable-next-line
 	}, [conversation]);
@@ -89,6 +92,7 @@ const GroupInfo: React.FC<Props> = ({
 	}
 
 	async function removeMember(user: UserType) {
+		setLoading(true)
 		const updatedConversation = await removeGroupMemberRequest(
 			conversation?._id as string,
 			user._id as string,
@@ -102,6 +106,7 @@ const GroupInfo: React.FC<Props> = ({
 		}
 		dispatch(setSelectedConversation(updatedConversation.res));
 		getConversations();
+		setLoading(false)
 	}
 
 	async function deleteGroup() {
@@ -180,6 +185,7 @@ const GroupInfo: React.FC<Props> = ({
 	}
 
     async function changeGroupName() {
+		setLoading(true)
         const updatedConversation = await editGroupNameRequest(
             conversation?._id as string,
             name,
@@ -191,7 +197,10 @@ const GroupInfo: React.FC<Props> = ({
         });
         getConversations();
         dispatch(setSelectedConversation(updatedConversation.res));
+		setLoading(false)
     }
+
+	if(showAddGroupMember) return <AddGroupMember setShowAddGroupMember={setShowAddGroupMember} conversation={conversation as ConversationType} />
 
 	return (
 		<div className="group-info">
@@ -232,7 +241,7 @@ const GroupInfo: React.FC<Props> = ({
 					</span>
                 </>}
                 {" "}
-                {name !== conversation?.conversationName && 
+                {name !== conversation?.conversationName && name.length > 0 &&  
                     <Tooltip title="change group name">
                         <i className="fa-solid fa-md fa-floppy-disk save" onClick={changeGroupName}></i>
                     </Tooltip>

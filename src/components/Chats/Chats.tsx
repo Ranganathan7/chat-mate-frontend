@@ -197,7 +197,7 @@ const Chats: React.FC<Props> = ({ showUserInfo, showGroupInfo }) => {
 							);
 						}
 					})}
-					<div className="bottom-scroll" ref={messageEndRef}></div>
+					<div className="bottom-scroll" style={{marginBottom: "1%"}} ref={messageEndRef}></div>
 				</div>
 			)}
 			{chats.length > 0 && (

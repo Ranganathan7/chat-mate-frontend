@@ -59,11 +59,11 @@ const Login: React.FC = () => {
 					<input
 						type="text"
 						className="form-control"
-						placeholder="Email ID"
+						placeholder="Email ID / User Name"
 						value={email}
 						onChange={handleEmail}
 					/>
-					<label>Email ID</label>
+					<label>Email ID / User Name</label>
 				</div>
 				<div className="form-floating">
 					<input
