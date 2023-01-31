@@ -5,7 +5,8 @@ import UserType from "./user.type"
 type StateType = {
     userInfo?: UserType ,
     conversations?: ConversationType[],
-    selectedConversation?: ConversationType
+    selectedConversation?: ConversationType,
+    notifications?: string[]
 }
 
 export default StateType

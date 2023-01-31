@@ -11,13 +11,22 @@ import { updateConversationRequest } from "../apiCalls/updateConversation.reques
 import setSelectedConversation from "../../redux/actions/setSelectedConversation";
 import { getConversationsRequest } from "../apiCalls/getConverrsations.request";
 import setConversations from "../../redux/actions/setConversations";
+import ConversationType from "../../types/conversation.type";
+import { Socket } from "socket.io-client"
+import { useTransform } from "framer-motion";
+import UserType from "../../types/user.type";
+import { isMemberName } from "typescript";
+import removeSelectedConversation from "../../redux/actions/removeSelectedConversation";
+import addNotification from "../../redux/actions/addNotification";
 
 interface Props {
 	showUserInfo: React.Dispatch<React.SetStateAction<boolean>>;
 	showGroupInfo: React.Dispatch<React.SetStateAction<boolean>>;
+	socket: Socket | undefined
 }
 
-const Chats: React.FC<Props> = ({ showUserInfo, showGroupInfo }) => {
+const Chats: React.FC<Props> = ({ showUserInfo, showGroupInfo, socket }) => {
+
 	const dispatch = useDispatch();
 	const selectedConversation = useSelector(
 		(state: StateType) => state?.selectedConversation
@@ -34,18 +43,43 @@ const Chats: React.FC<Props> = ({ showUserInfo, showGroupInfo }) => {
 			await getChats();
 		};
 		getChats_();
+		let res = false
+		selectedConversation?.users.map((member: UserType) => {
+			if(user?._id === member._id) res = true
+		})
+		if(!res) dispatch(removeSelectedConversation());
 
 		// eslint-disable-next-line
 	}, [selectedConversation]);
 
 	useEffect(() => {
 		messageEndRef.current?.scrollIntoView({
-			behavior: "smooth",
 			block: "end",
 		});
 
 		// eslint-disable-next-line
 	}, [chats]);
+
+	useEffect(() => {
+		socket?.on("message", (conversationId: string) => {
+			if(conversationId === selectedConversation?._id) getChats()
+			else {
+				getConversations()
+				dispatch(addNotification(conversationId))
+			}
+		})
+
+		socket?.on("userOnline", () => {
+			getConversations()
+		})
+
+		return(() => {
+			socket?.off("message")
+			socket?.off("userOnline")
+		})
+
+		// eslint-disable-next-line
+	});
 
 	async function getChats() {
 		setLoading(true);
@@ -65,6 +99,18 @@ const Chats: React.FC<Props> = ({ showUserInfo, showGroupInfo }) => {
 		setLoading(false);
 	}
 
+	async function getConversations() {
+		const conversations = await getConversationsRequest();
+		if (conversations.res) { 
+			dispatch(setConversations(conversations.res));
+		}
+		else
+			toast.error(conversations.error, {
+				autoClose: 5000,
+				position: toast.POSITION.BOTTOM_RIGHT,
+			});
+	}
+
 	async function sendMessage(message: string) {
 		setMessageLoading(true);
 		const result = await updateConversationRequest(
@@ -78,21 +124,22 @@ const Chats: React.FC<Props> = ({ showUserInfo, showGroupInfo }) => {
 			});
 		} else {
 			const conversation = result.res;
-			dispatch(setSelectedConversation(conversation));
-			getChats();
-			const conversations = await getConversationsRequest();
-			if (conversations.res) dispatch(setConversations(conversations.res));
-			else
-				toast.error(conversations.error, {
-					autoClose: 5000,
-					position: toast.POSITION.BOTTOM_RIGHT,
-				});
+			socket?.emit("newMessage", {conversationId: conversation?._id})
 		}
 		setMessage("");
 		setMessageLoading(false);
 	}
 
-	if (loading) {
+	function compareDates(msgDate1: Date, msgDate2: Date) {
+		const date1 = new Date(msgDate1)
+		const date2 = new Date(msgDate2)
+		if(date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear())
+			return true
+		else 
+			return false
+	}
+
+	if (loading && !chats) {
 		return (
 			<div className="conversations-loading">
 				<div className="spinner-grow text-primary" role="status">
@@ -149,8 +196,8 @@ const Chats: React.FC<Props> = ({ showUserInfo, showGroupInfo }) => {
 						else if (chat.author._id === user?._id) {
 							return (
 								<div key={chat._id} className="chat-bubble sender">
+									<span className="sender-date">{chatDate.toDateString()}</span>
 									<span className="message">{chat.content}</span>
-									<span> </span>
 									<span className="time">
 										{chatDate.toLocaleTimeString("en-US", {
 											hour: "2-digit",
@@ -184,8 +231,8 @@ const Chats: React.FC<Props> = ({ showUserInfo, showGroupInfo }) => {
 												</div>
 										  )}
 									<div className="chat-bubble receiver">
+										<span className="receiver-date">{chatDate.toDateString()}</span>
 										<span className="message">{chat.content}</span>
-										<span> </span>
 										<span className="time">
 											{chatDate.toLocaleTimeString("en-US", {
 												hour: "2-digit",

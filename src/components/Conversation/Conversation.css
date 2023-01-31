@@ -33,6 +33,16 @@
     border: 0;
 }
 
+.conversation .time .dot {
+    height: 15px;
+    width: 15px;
+    background-color: orange;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    bottom: 1%;
+}
+
 .pic .online {
     position: absolute;
     top: -10%;

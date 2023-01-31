@@ -18,6 +18,7 @@ import { editGroupPicRequest } from "../apiCalls/editGroupPic.request";
 import { editGroupNameRequest } from "../apiCalls/editGroupName.request";
 import AddGroupMember from "../AddGroupMember/AddGroupMember";
 import ConversationType from "../../types/conversation.type";
+import { Socket } from "socket.io-client";
 
 interface Props {
 	showGroupInfo: React.Dispatch<React.SetStateAction<boolean>>;
@@ -25,6 +26,7 @@ interface Props {
 	showEditProfile: React.Dispatch<React.SetStateAction<boolean>>;
 	loading: boolean;
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+	socket: Socket | undefined
 }
 
 const GroupInfo: React.FC<Props> = ({
@@ -33,6 +35,7 @@ const GroupInfo: React.FC<Props> = ({
 	showEditProfile,
 	loading,
 	setLoading,
+	socket
 }) => {
 	const conversation = useSelector(
 		(state: StateType) => state?.selectedConversation
@@ -88,7 +91,7 @@ const GroupInfo: React.FC<Props> = ({
 			});
 		}
 		dispatch(removeSelectedConversation());
-		getConversations();
+		socket?.emit("newMessage", {conversationId: conversation?._id})
 	}
 
 	async function removeMember(user: UserType) {
@@ -104,8 +107,8 @@ const GroupInfo: React.FC<Props> = ({
 				position: toast.POSITION.BOTTOM_RIGHT,
 			});
 		}
-		dispatch(setSelectedConversation(updatedConversation.res));
-		getConversations();
+		// dispatch(setSelectedConversation(updatedConversation.res));
+		socket?.emit("newMessage", {conversationId: conversation?._id})
 		setLoading(false)
 	}
 
@@ -121,17 +124,7 @@ const GroupInfo: React.FC<Props> = ({
 		}
 		dispatch(removeSelectedConversation());
 		showGroupInfo(false);
-		getConversations();
-	}
-
-	async function getConversations() {
-		const conversations = await getConversationsRequest();
-		if (conversations.res) dispatch(setConversations(conversations.res));
-		else
-			toast.error(conversations.error, {
-				autoClose: 5000,
-				position: toast.POSITION.BOTTOM_RIGHT,
-			});
+		socket?.emit("newMessage", {conversationId: conversation?._id})
 	}
 
 	async function handlePic(picture: any) {
@@ -165,8 +158,8 @@ const GroupInfo: React.FC<Props> = ({
 						autoClose: 5000,
 						position: toast.POSITION.BOTTOM_RIGHT,
 					});
-					getConversations();
-					dispatch(setSelectedConversation(updatedConversation.res));
+					socket?.emit("newMessage", {conversationId: conversation?._id})
+					// dispatch(setSelectedConversation(updatedConversation.res));
 				})
 				.catch((err) => {
 					toast.warning(err, {
@@ -195,12 +188,12 @@ const GroupInfo: React.FC<Props> = ({
             autoClose: 5000,
             position: toast.POSITION.BOTTOM_RIGHT,
         });
-        getConversations();
-        dispatch(setSelectedConversation(updatedConversation.res));
+        socket?.emit("newMessage", {conversationId: conversation?._id})
+        // dispatch(setSelectedConversation(updatedConversation.res));
 		setLoading(false)
     }
 
-	if(showAddGroupMember) return <AddGroupMember setShowAddGroupMember={setShowAddGroupMember} conversation={conversation as ConversationType} />
+	if(showAddGroupMember) return <AddGroupMember setShowAddGroupMember={setShowAddGroupMember} conversation={conversation as ConversationType} socket={socket}/>
 
 	return (
 		<div className="group-info">

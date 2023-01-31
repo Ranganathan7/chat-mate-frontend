@@ -57,6 +57,35 @@
     display: flex;
 }
 
+.chats .chat-bubble .sender-date {
+    position: absolute;
+    right: 100%;
+    color: black;
+    width: max-content;
+    font-weight: 700;
+    font-size: 0.8rem;
+    opacity: 0%;
+}
+
+.chats .chat-bubble:hover .sender-date {
+    opacity: 100%;
+}
+
+.chats .chat-bubble .receiver-date {
+    position: absolute;
+    left: 100%;
+    color: black;
+    width: max-content;
+    font-weight: 700;
+    font-size: 0.8rem;
+    opacity: 0%;
+}
+
+.chats .chat-bubble:hover .receiver-date {
+    opacity: 100%;
+}
+
+
 .chats .messager-info {
     display: flex;
     margin-top: 1%;

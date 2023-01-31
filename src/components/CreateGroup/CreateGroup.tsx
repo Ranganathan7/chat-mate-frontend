@@ -10,12 +10,14 @@ import setConversations from "../../redux/actions/setConversations";
 import { useDispatch } from "react-redux";
 import setSelectedConversation from "../../redux/actions/setSelectedConversation";
 import { searchUsersRequest } from "../apiCalls/searchUsers.request";
+import { Socket } from "socket.io-client";
 
 interface Props {
     setShowCreateGroup: React.Dispatch<React.SetStateAction<boolean>>;
+	socket: Socket | undefined
 }
 
-const CreateGroup: React.FC<Props> = ({ setShowCreateGroup }) => {
+const CreateGroup: React.FC<Props> = ({ setShowCreateGroup, socket }) => {
 	const [pic, setPic] = useState<string>(
 		"https://i.pinimg.com/originals/cf/f3/58/cff3584f65cf4fe72c9591500a7c5c8f.jpg"
 	);
@@ -144,7 +146,7 @@ const CreateGroup: React.FC<Props> = ({ setShowCreateGroup }) => {
 					position: toast.POSITION.BOTTOM_RIGHT,
 				});
                 setShowCreateGroup(false)
-				getConversations();
+				socket?.emit("newMessage", {conversationId: groupConversation.res._id})
 				dispatch(setSelectedConversation(groupConversation.res));
 			}
 		}

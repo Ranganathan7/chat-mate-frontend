@@ -5,22 +5,35 @@ import ConversationType from "../../types/conversation.type";
 import { useDispatch, useSelector } from "react-redux";
 import StateType from "../../types/state.type";
 import setSelectedConversation from "../../redux/actions/setSelectedConversation";
+import { Socket } from "socket.io-client";
+import removeNotification from "../../redux/actions/removeNotification";
 
 interface Props {
 	conversation: ConversationType;
+	socket: Socket | undefined
 }
 
-const Conversation: React.FC<Props> = ({ conversation }) => {
+const Conversation: React.FC<Props> = ({ conversation, socket }) => {
 	const isGroup = conversation.conversationName === "" ? false : true;
 	const user = useSelector((state: StateType) => state?.userInfo);
 	const date = new Date(conversation.updatedAt);
 	const dispatch = useDispatch();
+	const conversations = useSelector((state: StateType) => state?.conversations)
 	const selectedConversation = useSelector(
 		(state: StateType) => state?.selectedConversation
 	);
+	const notifications = useSelector((state: StateType) => state?.notifications)
+
+	useEffect(() => {
+		if(conversation._id === selectedConversation?._id) dispatch(setSelectedConversation(conversation))
+
+		// eslint-disable-next-line
+	}, [conversations])
 
 	async function setSelected() {
 		dispatch(setSelectedConversation(conversation));
+		socket?.emit("joinConversation", {conversationId: conversation._id})
+		dispatch(removeNotification(conversation._id))
 	}
 
 	if (isGroup) {
@@ -57,6 +70,7 @@ const Conversation: React.FC<Props> = ({ conversation }) => {
 					<p className="date">
 						{date.getHours()}:{date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes()}
 					</p>
+					{notifications?.includes(conversation._id) && <div className="dot"></div>}
 				</div>
 			</div>
 		);
@@ -99,6 +113,7 @@ const Conversation: React.FC<Props> = ({ conversation }) => {
 							<p className="date">
 								{date.getHours()}:{date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes()}
 							</p>
+							{notifications?.includes(conversation._id) && <div className="dot"></div>}
 						</div>
 					</>
 				)}
@@ -130,6 +145,7 @@ const Conversation: React.FC<Props> = ({ conversation }) => {
 							<p className="date">
 								{date.getHours()}:{date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes()}
 							</p>
+							{notifications?.includes(conversation._id) && <div className="dot"></div>}
 						</div>
 					</>
 				)}

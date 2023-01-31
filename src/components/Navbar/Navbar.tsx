@@ -2,19 +2,25 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Socket } from "socket.io-client";
 import clearStore from "../../redux/actions/clearStore";
 import { editProfileRequest } from "../apiCalls/editProfile.request";
 import { logoutRequest } from "../apiCalls/logout.request";
 import "./Navbar.css";
 
-const Navbar = () => {
+interface Props {
+    socket: Socket | undefined
+}
+
+const Navbar: React.FC<Props> = ({socket}) => {
 
     const [show, setShow] = useState<boolean>(false)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
     async function logout() {
-        editProfileRequest("", "", false)
+        await editProfileRequest("", "", false)
+        socket?.emit("userOnline")
         const res = await logoutRequest()
         if(res.error) {
             toast.error(res.error, { autoClose:5000, position: toast.POSITION.BOTTOM_RIGHT })

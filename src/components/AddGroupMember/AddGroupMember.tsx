@@ -10,15 +10,18 @@ import { addGroupMemberRequest } from "../apiCalls/addGroupMember.request";
 import setSelectedConversation from "../../redux/actions/setSelectedConversation";
 import { getConversationsRequest } from "../apiCalls/getConverrsations.request";
 import setConversations from "../../redux/actions/setConversations";
+import { Socket } from "socket.io-client";
 
 interface Props {
 	setShowAddGroupMember: React.Dispatch<React.SetStateAction<boolean>>;
 	conversation: ConversationType;
+	socket: Socket | undefined
 }
 
 const AddGroupMember: React.FC<Props> = ({
 	setShowAddGroupMember,
 	conversation,
+	socket
 }) => {
 	const [search, setSearch] = useState<string>("");
 	const [users, setUsers] = useState<UserType[]>([]);
@@ -45,24 +48,14 @@ const AddGroupMember: React.FC<Props> = ({
 				position: toast.POSITION.BOTTOM_RIGHT,
 			});
 		}
-        dispatch(setSelectedConversation(updatedConversation.res));
-		getConversations();
+		setShowAddGroupMember(true)
+        socket?.emit("newMessage", {conversationId: conversation?._id})
 		setLoading(false);
-	}
-
-    async function getConversations() {
-		const conversations = await getConversationsRequest();
-		if (conversations.res) dispatch(setConversations(conversations.res));
-		else
-			toast.error(conversations.error, {
-				autoClose: 5000,
-				position: toast.POSITION.BOTTOM_RIGHT,
-			});
 	}
 
 	async function getUsers(name: string) {
 		setSearching(true);
-		const result = await searchUsersRequest(name);
+		const result: any = await searchUsersRequest(name);
 		if (result.error) {
 			toast.error(result.error, {
 				autoClose: 5000,

@@ -6,7 +6,7 @@ import UserType from "../types/user.type"
 
 type Action = {
     type: string, 
-    payload?: UserType | ConversationType[] | ChatType[] | ConversationType
+    payload?: UserType | ConversationType[] | ChatType[] | ConversationType | string[] | string
 }
 
 const reducer: Reducer = (state: StateType, action: Action) => {
@@ -23,6 +23,12 @@ const reducer: Reducer = (state: StateType, action: Action) => {
             return newState
         case "CLEAR_STORE":
             return {}
+        case "SET_NOTIFICATIONS":
+            return {...state, notifications: action.payload}
+        case "REMOVE_NOTIFICATION":
+            return {...state, notifications: state.notifications?.filter(item => item !== action.payload)}
+        case "ADD_NOTIFICATION":
+            return {...state, notifications: [...state?.notifications as string[], action.payload]}
         default:
             return state
     }

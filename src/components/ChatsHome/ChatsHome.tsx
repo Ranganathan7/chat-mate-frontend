@@ -18,6 +18,9 @@ import ProfileNavbar from "../ProfileNavbar/ProfileNavbar"
 import SearchUser from "../SearchUser/SearchUser"
 import UserInfo from "../UserInfo/UserInfo"
 import "./ChatsHome.css"
+import io, { Socket } from "socket.io-client"
+
+const ENDPOINT = "http://localhost:5000"
 
 const ChatsHome: React.FC = () => {
 
@@ -30,12 +33,32 @@ const ChatsHome: React.FC = () => {
     const [showGroupInfo, setShowGroupInfo] = useState<boolean>(false)
     const [showUserInfo, setShowUserInfo] = useState<boolean>(false)
     const [rightLoading, setRightLoading] = useState<boolean>(false)
+    const [socket, setSocket] = useState<Socket>()
+
+    useEffect(() => {
+        const newSocket = io(ENDPOINT)
+		setSocket(newSocket)
+        setLoading(true)
+        if(!localStorage.getItem("userInfo")){
+            toast.info("Please login to access that page", { autoClose:5000, position: toast.POSITION.BOTTOM_RIGHT })
+			navigate("/home")
+		}
+        dispatch(setUserInfo(localStorage.getItem("userInfo") as string))
+        setLoading(false)
+        online()
+        // window.addEventListener("focus", online)
+        // window.addEventListener("blur", offline)
+
+        // eslint-disable-next-line
+    }, [])
 
     async function online() {
         const onlineUser = await editProfileRequest("", "", true)
         if(onlineUser.res) {
             localStorage.setItem("userInfo", JSON.stringify(onlineUser.res))
             dispatch(setUserInfo(JSON.stringify(onlineUser.res)))
+            socket?.emit("userOnline")
+            socket?.emit("joinChatMate", onlineUser.res._id)
         }
         else {
             toast.error(onlineUser.error, { autoClose:5000, position: toast.POSITION.BOTTOM_RIGHT })
@@ -47,31 +70,12 @@ const ChatsHome: React.FC = () => {
         if(offlineUser.res) {
             localStorage.setItem("userInfo", JSON.stringify(offlineUser.res))
             dispatch(setUserInfo(JSON.stringify(offlineUser.res)))
+            socket?.emit("userOnline")
         }
         else {
             toast.error(offlineUser.error, { autoClose:5000, position: toast.POSITION.BOTTOM_RIGHT })
         }
     }
-
-    useEffect(() => {
-        setLoading(true)
-        if(!localStorage.getItem("userInfo")){
-            toast.info("Please login to access that page", { autoClose:5000, position: toast.POSITION.BOTTOM_RIGHT })
-			navigate("/home")
-		}
-        dispatch(setUserInfo(localStorage.getItem("userInfo") as string))
-        setLoading(false)
-        online()
-        window.addEventListener("focus", online)
-        window.addEventListener("blur", offline)
-
-        return () => {
-            window.removeEventListener("focus", online)
-            window.removeEventListener("blur", offline)
-        }
-
-        // eslint-disable-next-line
-    }, [])
 
     if(loading){
         return (
@@ -81,7 +85,7 @@ const ChatsHome: React.FC = () => {
 
     return (
         <div className="chats-home-container">
-            <Navbar />
+            <Navbar socket={socket}/>
             <div className="row">
                 <div className="col-3 left">
                     <ProfileNavbar 
@@ -93,15 +97,15 @@ const ChatsHome: React.FC = () => {
                         showCreateGroup={showCreateGroup} 
                     />
                     {showEditProfile && <EditProfile />}
-                    {showCreateGroup && <CreateGroup setShowCreateGroup={setShowCreateGroup}/>}
+                    {showCreateGroup && <CreateGroup setShowCreateGroup={setShowCreateGroup} socket={socket}/>}
                     {showSearch && <SearchUser setShowSearch={setShowSearch} />}
-                    {!showEditProfile && !showCreateGroup && !showSearch && <Conversations />}
+                    {!showEditProfile && !showCreateGroup && !showSearch && <Conversations socket={socket}/>}
                 </div>
                 <div className={(showGroupInfo || showUserInfo) ? "col mid right" : "col mid"}>
-                    <Chats showGroupInfo={setShowGroupInfo} showUserInfo={setShowUserInfo}/>
+                    <Chats showGroupInfo={setShowGroupInfo} showUserInfo={setShowUserInfo} socket={socket} />
                 </div>
                 {(showGroupInfo || showUserInfo) && <div className="col-3 right">
-                    {showGroupInfo && <GroupInfo showGroupInfo={setShowGroupInfo} showUserInfo={setShowUserInfo} showEditProfile={setShowEditProfile} loading={rightLoading} setLoading={setRightLoading}/>}
+                    {showGroupInfo && <GroupInfo showGroupInfo={setShowGroupInfo} showUserInfo={setShowUserInfo} showEditProfile={setShowEditProfile} loading={rightLoading} setLoading={setRightLoading} socket={socket}/>}
                     {showUserInfo && <UserInfo showUserInfo={setShowUserInfo} showGroupInfo={setShowGroupInfo} loading={rightLoading} setLoading={setRightLoading}/>}
                 </div>}
             </div>
