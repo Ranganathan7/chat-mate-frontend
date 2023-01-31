@@ -43,9 +43,13 @@ const ChatsHome: React.FC = () => {
             toast.info("Please login to access that page", { autoClose:5000, position: toast.POSITION.BOTTOM_RIGHT })
 			navigate("/home")
 		}
-        dispatch(setUserInfo(localStorage.getItem("userInfo") as string))
+        else {
+            dispatch(setUserInfo(localStorage.getItem("userInfo") as string))
+            online()
+            newSocket.emit("userOnline")
+            newSocket.emit("joinChatMate", {userId: JSON.parse(localStorage.getItem("userInfo") as string)._id})
+        }
         setLoading(false)
-        online()
         // window.addEventListener("focus", online)
         // window.addEventListener("blur", offline)
 
@@ -57,8 +61,6 @@ const ChatsHome: React.FC = () => {
         if(onlineUser.res) {
             localStorage.setItem("userInfo", JSON.stringify(onlineUser.res))
             dispatch(setUserInfo(JSON.stringify(onlineUser.res)))
-            socket?.emit("userOnline")
-            socket?.emit("joinChatMate", onlineUser.res._id)
         }
         else {
             toast.error(onlineUser.error, { autoClose:5000, position: toast.POSITION.BOTTOM_RIGHT })

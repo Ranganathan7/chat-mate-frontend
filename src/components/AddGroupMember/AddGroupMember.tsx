@@ -49,7 +49,8 @@ const AddGroupMember: React.FC<Props> = ({
 			});
 		}
 		setShowAddGroupMember(true)
-        socket?.emit("newMessage", {conversationId: conversation?._id})
+		dispatch(setSelectedConversation(updatedConversation.res))
+        socket?.emit("newGroup", {conversationId: conversation?._id})
 		setLoading(false);
 	}
 

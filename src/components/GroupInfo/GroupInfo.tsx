@@ -107,7 +107,7 @@ const GroupInfo: React.FC<Props> = ({
 				position: toast.POSITION.BOTTOM_RIGHT,
 			});
 		}
-		// dispatch(setSelectedConversation(updatedConversation.res));
+		dispatch(setSelectedConversation(updatedConversation.res));
 		socket?.emit("newMessage", {conversationId: conversation?._id})
 		setLoading(false)
 	}
@@ -122,9 +122,8 @@ const GroupInfo: React.FC<Props> = ({
 				position: toast.POSITION.BOTTOM_RIGHT,
 			});
 		}
-		dispatch(removeSelectedConversation());
 		showGroupInfo(false);
-		socket?.emit("newMessage", {conversationId: conversation?._id})
+		socket?.emit("deleteGroup", {conversationId: conversation?._id})
 	}
 
 	async function handlePic(picture: any) {
@@ -159,7 +158,7 @@ const GroupInfo: React.FC<Props> = ({
 						position: toast.POSITION.BOTTOM_RIGHT,
 					});
 					socket?.emit("newMessage", {conversationId: conversation?._id})
-					// dispatch(setSelectedConversation(updatedConversation.res));
+					dispatch(setSelectedConversation(updatedConversation.res));
 				})
 				.catch((err) => {
 					toast.warning(err, {
@@ -189,7 +188,7 @@ const GroupInfo: React.FC<Props> = ({
             position: toast.POSITION.BOTTOM_RIGHT,
         });
         socket?.emit("newMessage", {conversationId: conversation?._id})
-        // dispatch(setSelectedConversation(updatedConversation.res));
+        dispatch(setSelectedConversation(updatedConversation.res));
 		setLoading(false)
     }
 

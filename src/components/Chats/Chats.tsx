@@ -37,6 +37,7 @@ const Chats: React.FC<Props> = ({ showUserInfo, showGroupInfo, socket }) => {
 	const [chats, setChats] = useState<ChatType[]>([]);
 	const [message, setMessage] = useState<string>("");
 	const [messageLoading, setMessageLoading] = useState<boolean>(false);
+	const [isTyping, setIsTyping] = useState<boolean>(false)
 
 	useEffect(() => {
 		const getChats_ = async () => {
@@ -48,6 +49,9 @@ const Chats: React.FC<Props> = ({ showUserInfo, showGroupInfo, socket }) => {
 			if(user?._id === member._id) res = true
 		})
 		if(!res) dispatch(removeSelectedConversation());
+		socket?.emit("stopTyping", {conversationId: selectedConversation?._id, userId: user?._id})
+		setIsTyping(false)
+		setMessage("")
 
 		// eslint-disable-next-line
 	}, [selectedConversation]);
@@ -62,7 +66,10 @@ const Chats: React.FC<Props> = ({ showUserInfo, showGroupInfo, socket }) => {
 
 	useEffect(() => {
 		socket?.on("message", (conversationId: string) => {
-			if(conversationId === selectedConversation?._id) getChats()
+			if(conversationId === selectedConversation?._id) {
+				getChats()
+				getConversations()
+			}
 			else {
 				getConversations()
 				dispatch(addNotification(conversationId))
@@ -73,9 +80,28 @@ const Chats: React.FC<Props> = ({ showUserInfo, showGroupInfo, socket }) => {
 			getConversations()
 		})
 
+		socket?.on("startedTyping", ({conversationId, userId}) => {
+			if(conversationId === selectedConversation?._id && userId !== user?._id) 
+				setIsTyping(true)
+		})
+
+		socket?.on("stoppedTyping", ({conversationId, userId}) => {
+			if(conversationId === selectedConversation?._id && userId !== user?._id)
+				setIsTyping(false)
+		})
+
+		socket?.on("deleted", (conversationId) => {
+			if(selectedConversation?._id === conversationId) dispatch(removeSelectedConversation());
+			getConversations()
+		})
+		
+
 		return(() => {
 			socket?.off("message")
 			socket?.off("userOnline")
+			socket?.off("startedTyping")
+			socket?.off("stoppedTyping")
+			socket?.off("deleted")
 		})
 
 		// eslint-disable-next-line
@@ -124,19 +150,27 @@ const Chats: React.FC<Props> = ({ showUserInfo, showGroupInfo, socket }) => {
 			});
 		} else {
 			const conversation = result.res;
+			socket?.emit("stopTyping", {conversationId: selectedConversation?._id, userId: user?._id})
 			socket?.emit("newMessage", {conversationId: conversation?._id})
 		}
 		setMessage("");
 		setMessageLoading(false);
 	}
 
-	function compareDates(msgDate1: Date, msgDate2: Date) {
-		const date1 = new Date(msgDate1)
-		const date2 = new Date(msgDate2)
-		if(date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear())
-			return true
-		else 
-			return false
+	// function compareDates(msgDate1: Date, msgDate2: Date) {
+	// 	const date1 = new Date(msgDate1)
+	// 	const date2 = new Date(msgDate2)
+	// 	if(date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear())
+	// 		return true
+	// 	else 
+	// 		return false
+	// }
+
+	function handleTyping() {
+		socket?.emit("startTyping", {conversationId: selectedConversation?._id, userId: user?._id})
+		if(!isTyping) setTimeout(() => {
+			socket?.emit("stopTyping", {conversationId: selectedConversation?._id, userId: user?._id})
+		}, 3000)
 	}
 
 	if (loading && !chats) {
@@ -244,6 +278,9 @@ const Chats: React.FC<Props> = ({ showUserInfo, showGroupInfo, socket }) => {
 							);
 						}
 					})}
+					{isTyping && <>
+						<img src="/images/typing.gif" alt="Typing..." height="70" width="70"/>
+					</>}
 					<div className="bottom-scroll" style={{marginBottom: "1%"}} ref={messageEndRef}></div>
 				</div>
 			)}
@@ -258,9 +295,10 @@ const Chats: React.FC<Props> = ({ showUserInfo, showGroupInfo, socket }) => {
 						onKeyDown={(e) => {
 							if (e.key === "Enter") sendMessage(message);
 						}}
-						onChange={(e) =>
+						onChange={(e) => {
 							setMessage(e.currentTarget.value.toLowerCase().slice(0, 99))
-						}
+							handleTyping()
+						}}
 					></input>
 					<span style={{ fontSize: "0.9rem", color: "grey" }}>
 						{99 - message.length}

@@ -17,7 +17,6 @@ const App: React.FC = () => {
   function setWindowDimensions() {
     setWindowWidth(window.innerWidth)
     setWindowHeight(window.innerHeight)
-    console.log(window.innerWidth, window.innerHeight)
   }
 
   useEffect(() => {
@@ -27,7 +26,8 @@ const App: React.FC = () => {
     })
   }, [])
 
-  if(window.innerWidth > 1200 && window.innerHeight > 450) return (
+  // if(window.innerWidth > 1200 && window.innerHeight > 450) 
+  return (
     <Router>
       <Routes>
         <Route path="/" element={<ChatMate />}/>
@@ -40,9 +40,9 @@ const App: React.FC = () => {
     </Router>
   )
 
-  else return (
-    <MobileApp />
-  )
+  // else return (
+  //   <MobileApp />
+  // )
 }
 
 export default App

@@ -146,7 +146,7 @@ const CreateGroup: React.FC<Props> = ({ setShowCreateGroup, socket }) => {
 					position: toast.POSITION.BOTTOM_RIGHT,
 				});
                 setShowCreateGroup(false)
-				socket?.emit("newMessage", {conversationId: groupConversation.res._id})
+				socket?.emit("newGroup", {conversationId: groupConversation.res._id})
 				dispatch(setSelectedConversation(groupConversation.res));
 			}
 		}
