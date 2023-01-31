@@ -1,0 +1,15 @@
+.mobile-app {
+    height: 100vh;
+    width: 100vw;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.mobile-app .image {
+    height: 50%;
+    width: 50%;
+}
+
+.mobile-app .text {
+    padding: 3%;
+}
