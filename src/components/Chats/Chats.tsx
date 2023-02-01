@@ -296,7 +296,7 @@ const Chats: React.FC<Props> = ({ showUserInfo, showGroupInfo, socket }) => {
 							if (e.key === "Enter") sendMessage(message);
 						}}
 						onChange={(e) => {
-							setMessage(e.currentTarget.value.toLowerCase().slice(0, 99))
+							setMessage(e.currentTarget.value.toLowerCase().slice(0, 50))
 							handleTyping()
 						}}
 					></input>
