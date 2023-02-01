@@ -93,7 +93,7 @@ const Conversation: React.FC<Props> = ({ conversation, socket }) => {
 								style={{border: "1px solid black"}}
 							/>
 							{conversation.users[0].online && <span className="bg-success border border-light rounded-circle online"></span>}
-							{!conversation.users[0].online && <span className="bg-secondary border border-light rounded-circle online"></span>}
+							{!conversation.users[0].online && <span className="bg-dark border border-light rounded-circle online"></span>}
 						</div>
 						<div className="messager">
 							<p className="title">{conversation.users[0].name}</p>
@@ -125,7 +125,7 @@ const Conversation: React.FC<Props> = ({ conversation, socket }) => {
 								src={conversation.users[1].pic}
 							/>
 							{conversation.users[1].online && <span className="bg-success border border-light rounded-circle online"></span>}
-							{!conversation.users[1].online && <span className="bg-secondary border border-light rounded-circle online"></span>}
+							{!conversation.users[1].online && <span className="bg-dark border border-light rounded-circle online"></span>}
 						</div>
 						<div className="messager">
 							<p className="title">{conversation.users[1].name}</p>

@@ -19,6 +19,8 @@ import SearchUser from "../SearchUser/SearchUser"
 import UserInfo from "../UserInfo/UserInfo"
 import "./ChatsHome.css"
 import io, { Socket } from "socket.io-client"
+import { logoutRequest } from "../apiCalls/logout.request"
+import clearStore from "../../redux/actions/clearStore"
 
 const ENDPOINT = "http://localhost:5000"
 
@@ -34,9 +36,10 @@ const ChatsHome: React.FC = () => {
     const [showUserInfo, setShowUserInfo] = useState<boolean>(false)
     const [rightLoading, setRightLoading] = useState<boolean>(false)
     const [socket, setSocket] = useState<Socket>()
+    let newSocket: Socket
 
     useEffect(() => {
-        const newSocket = io(ENDPOINT)
+        newSocket = io(ENDPOINT)
 		setSocket(newSocket)
         setLoading(true)
         if(!localStorage.getItem("userInfo")){
@@ -50,8 +53,15 @@ const ChatsHome: React.FC = () => {
             newSocket.emit("joinChatMate", {userId: JSON.parse(localStorage.getItem("userInfo") as string)._id})
         }
         setLoading(false)
-        // window.addEventListener("focus", online)
-        // window.addEventListener("blur", offline)
+        window.addEventListener("focus", online)
+        window.addEventListener("blur", offline)
+        // window.addEventListener("beforeunload", logout)
+
+        return(() => {
+            window.removeEventListener("focus", online)
+            window.removeEventListener("blur", offline)
+            // window.removeEventListener("beforeUnload", logout)
+        })
 
         // eslint-disable-next-line
     }, [])
@@ -61,6 +71,7 @@ const ChatsHome: React.FC = () => {
         if(onlineUser.res) {
             localStorage.setItem("userInfo", JSON.stringify(onlineUser.res))
             dispatch(setUserInfo(JSON.stringify(onlineUser.res)))
+            newSocket.emit("userOnline")
         }
         else {
             toast.error(onlineUser.error, { autoClose:5000, position: toast.POSITION.BOTTOM_RIGHT })
@@ -72,7 +83,7 @@ const ChatsHome: React.FC = () => {
         if(offlineUser.res) {
             localStorage.setItem("userInfo", JSON.stringify(offlineUser.res))
             dispatch(setUserInfo(JSON.stringify(offlineUser.res)))
-            socket?.emit("userOnline")
+            newSocket.emit("userOnline")
         }
         else {
             toast.error(offlineUser.error, { autoClose:5000, position: toast.POSITION.BOTTOM_RIGHT })
