@@ -1,10 +1,11 @@
 import axios from 'axios'
+import { endpoint } from './ENDPOINT'
 
 export const editProfileRequest = async (name: string, pic: string, online: boolean) => {
 
     try {
         const response = await axios.patch(
-            "http://localhost:5000/chat-mate-api/edit-profile",
+            endpoint+"/chat-mate-api/edit-profile",
             {
                 name: name,
                 pic: pic,

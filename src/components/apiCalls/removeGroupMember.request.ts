@@ -1,10 +1,11 @@
 import axios from 'axios'
+import { endpoint } from './ENDPOINT'
 
 export const removeGroupMemberRequest = async (conversationId: string, userId: string, message: string) => {
 
     try {
         const response = await axios.patch(
-            "http://localhost:5000/chat-mate-api/remove-group-member",
+            endpoint+"/chat-mate-api/remove-group-member",
             {
                 conversationId: conversationId,
                 userId: userId,

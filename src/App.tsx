@@ -26,7 +26,7 @@ const App: React.FC = () => {
     })
   }, [])
 
-  if(window.innerWidth > 100 && window.innerHeight > 450) return (
+  if(window.innerWidth > 1200 && window.innerHeight > 450) return (
     <Router>
       <Routes>
         <Route path="/" element={<ChatMate />}/>

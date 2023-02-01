@@ -21,8 +21,9 @@ import "./ChatsHome.css"
 import io, { Socket } from "socket.io-client"
 import { logoutRequest } from "../apiCalls/logout.request"
 import clearStore from "../../redux/actions/clearStore"
+import { endpoint } from "../apiCalls/ENDPOINT"
 
-const ENDPOINT = "http://localhost:5000"
+const ENDPOINT = endpoint
 
 const ChatsHome: React.FC = () => {
 

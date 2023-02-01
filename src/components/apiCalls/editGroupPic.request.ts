@@ -1,10 +1,11 @@
 import axios from 'axios'
+import { endpoint } from './ENDPOINT'
 
 export const editGroupPicRequest = async (conversationId: string, pic: string, message: string) => {
 
     try {
         const response = await axios.patch(
-            "http://localhost:5000/chat-mate-api/edit-group-pic",
+            endpoint+"/chat-mate-api/edit-group-pic",
             {
                 conversationId: conversationId,
                 conversationPic: pic,

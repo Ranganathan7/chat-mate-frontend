@@ -1,10 +1,11 @@
 import axios from 'axios'
+import { endpoint } from './ENDPOINT'
 
 export const deleteGroupRequest = async (conversationId: string) => {
 
     try {
         const response = await axios.post(
-            "http://localhost:5000/chat-mate-api/delete-group",
+            endpoint+"/chat-mate-api/delete-group",
             {
                 conversationId: conversationId
             },

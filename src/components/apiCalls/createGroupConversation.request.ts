@@ -1,10 +1,11 @@
 import axios from 'axios'
+import { endpoint } from './ENDPOINT'
 
 export const createGroupConversationRequest = async (users: string[], name: string, pic: string, message: string) => {
 
     try {
         const response = await axios.post(
-            "http://localhost:5000/chat-mate-api/create-group-conversation",
+            endpoint+"/chat-mate-api/create-group-conversation",
             {
                 users: users,
                 message: message,

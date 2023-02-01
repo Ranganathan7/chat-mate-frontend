@@ -1,10 +1,11 @@
 import axios from 'axios'
+import { endpoint } from './ENDPOINT'
 
 export const loginRequest = async (email: string, password: string) => {
 
     try {
         const response = await axios.post(
-            "http://localhost:5000/chat-mate-api/login",
+            endpoint+"/chat-mate-api/login",
             {
                 email: email,
                 password: password

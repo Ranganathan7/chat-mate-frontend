@@ -1,10 +1,11 @@
 import axios from 'axios'
+import { endpoint } from './ENDPOINT'
 
 export const getConversationsRequest = async () => {
 
     try {
         const response = await axios.get(
-            "http://localhost:5000/chat-mate-api/get-conversations",
+            endpoint+"/chat-mate-api/get-conversations",
             {
                 withCredentials: true
             }

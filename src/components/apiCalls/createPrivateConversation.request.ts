@@ -1,10 +1,11 @@
 import axios from 'axios'
+import { endpoint } from './ENDPOINT'
 
 export const createPrivateConversationRequest = async (userId: string) => {
 
     try {
         const response = await axios.post(
-            "http://localhost:5000/chat-mate-api/create-private-conversation",
+            endpoint+"/chat-mate-api/create-private-conversation",
             {
                 userId: userId
             },

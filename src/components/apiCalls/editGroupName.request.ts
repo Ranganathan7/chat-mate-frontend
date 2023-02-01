@@ -1,10 +1,11 @@
 import axios from 'axios'
+import { endpoint } from './ENDPOINT'
 
 export const editGroupNameRequest = async (conversationId: string, name: string, message: string) => {
 
     try {
         const response = await axios.patch(
-            "http://localhost:5000/chat-mate-api/edit-group-name",
+            endpoint+"/chat-mate-api/edit-group-name",
             {
                 conversationId: conversationId,
                 conversationName: name,

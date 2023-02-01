@@ -1,10 +1,11 @@
 import axios from 'axios'
+import { endpoint } from './ENDPOINT'
 
 export const searchUsersRequest = async (name: string) => {
 
     try {
         const response = await axios.get(
-            "http://localhost:5000/chat-mate-api/search-user?search="+name,
+            endpoint+"/chat-mate-api/search-user?search="+name,
             {
                 withCredentials: true
             }

@@ -1,10 +1,11 @@
 import axios from 'axios'
+import { endpoint } from './ENDPOINT'
 
 export const updateConversationRequest = async (conversationId: string, message: string) => {
 
     try {
         const response = await axios.post(
-            "http://localhost:5000/chat-mate-api/update-conversation",
+            endpoint+"/chat-mate-api/update-conversation",
             {
                 message: message,
                 conversationId: conversationId
