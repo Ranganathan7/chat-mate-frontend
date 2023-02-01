@@ -12,7 +12,10 @@ export const editProfileRequest = async (name: string, pic: string, online: bool
                 online: online
             },
             {
-                withCredentials: true
+                withCredentials: true,
+                headers: {
+                    'id': JSON.parse(localStorage.getItem("userInfo") as string)?._id
+                }
             }
         )
         return { message: "Updated Successfully!", res: response.data }

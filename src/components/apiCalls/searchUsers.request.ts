@@ -7,7 +7,10 @@ export const searchUsersRequest = async (name: string) => {
         const response = await axios.get(
             endpoint+"/chat-mate-api/search-user?search="+name,
             {
-                withCredentials: true
+                withCredentials: true,
+                headers: {
+                    'id': JSON.parse(localStorage.getItem("userInfo") as string)?._id
+                }
             }
         )
         return { res: response.data }

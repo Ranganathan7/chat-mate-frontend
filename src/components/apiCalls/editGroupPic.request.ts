@@ -12,7 +12,10 @@ export const editGroupPicRequest = async (conversationId: string, pic: string, m
                 message: message
             },
             {
-                withCredentials: true
+                withCredentials: true,
+                headers: {
+                    'id': JSON.parse(localStorage.getItem("userInfo") as string)?._id
+                }
             }
         )
         return { message: "Updated successfully!", res: response.data }

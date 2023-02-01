@@ -12,7 +12,10 @@ export const removeGroupMemberRequest = async (conversationId: string, userId: s
                 message: message
             },
             {
-                withCredentials: true
+                withCredentials: true,
+                headers: {
+                    'id': JSON.parse(localStorage.getItem("userInfo") as string)?._id
+                }
             }
         )
         return { res: response.data }

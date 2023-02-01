@@ -13,7 +13,10 @@ export const createGroupConversationRequest = async (users: string[], name: stri
                 conversationPic: pic
             },
             {
-                withCredentials: true
+                withCredentials: true,
+                headers: {
+                    'id': JSON.parse(localStorage.getItem("userInfo") as string)?._id
+                }
             }
         )
         return { res: response.data }

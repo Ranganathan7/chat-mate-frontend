@@ -8,7 +8,10 @@ export const logoutRequest = async () => {
             endpoint+"/chat-mate-api/logout",
             {},
             {
-                withCredentials: true
+                withCredentials: true,
+                headers: {
+                    'id': JSON.parse(localStorage.getItem("userInfo") as string)?._id
+                }
             }
         )
         return { message: response.data.message }

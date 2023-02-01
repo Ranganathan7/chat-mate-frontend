@@ -11,7 +11,10 @@ export const loginRequest = async (email: string, password: string) => {
                 password: password
             },
             {
-                withCredentials: true
+                withCredentials: true,
+                headers: {
+                    'id': JSON.parse(localStorage.getItem("userInfo") as string)?._id
+                }
             }
         )
         return { message: "Login Successful!", res: response.data }

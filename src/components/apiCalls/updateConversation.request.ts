@@ -11,7 +11,10 @@ export const updateConversationRequest = async (conversationId: string, message:
                 conversationId: conversationId
             },
             {
-                withCredentials: true
+                withCredentials: true,
+                headers: {
+                    'id': JSON.parse(localStorage.getItem("userInfo") as string)?._id
+                }
             }
         )
         return { res: response.data }

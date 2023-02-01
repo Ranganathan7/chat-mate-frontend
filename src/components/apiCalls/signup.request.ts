@@ -13,7 +13,10 @@ export const signupRequest = async (name: string, email: string, password: strin
                 pic: pic
             },
             {
-                withCredentials: true
+                withCredentials: true,
+                headers: {
+                    'id': JSON.parse(localStorage.getItem("userInfo") as string)?._id
+                }
             }
         )
         return { message: "Account Created Successfully!", res: response.data }

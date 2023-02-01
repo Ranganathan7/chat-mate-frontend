@@ -12,7 +12,10 @@ export const addGroupMemberRequest = async (conversationId: string, userId: stri
                 message: message
             },
             {
-                withCredentials: true
+                withCredentials: true,
+                headers: {
+                    'id': JSON.parse(localStorage.getItem("userInfo") as string)?._id
+                }
             }
         )
         return { res: response.data }

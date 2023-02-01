@@ -7,7 +7,10 @@ export const getConversationRequest = async (conversationId: string) => {
         const response = await axios.get(
             endpoint+"/chat-mate-api/get-conversation/"+conversationId,
             {
-                withCredentials: true
+                withCredentials: true,
+                headers: {
+                    'id': JSON.parse(localStorage.getItem("userInfo") as string)?._id
+                }
             }
         )
         return { res: response.data }
