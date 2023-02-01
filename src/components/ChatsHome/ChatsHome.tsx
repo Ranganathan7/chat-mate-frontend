@@ -56,12 +56,12 @@ const ChatsHome: React.FC = () => {
         setLoading(false)
         window.addEventListener("focus", online)
         window.addEventListener("blur", offline)
-        // window.addEventListener("beforeunload", logout)
+        window.addEventListener("beforeunload", offline)
 
         return(() => {
             window.removeEventListener("focus", online)
             window.removeEventListener("blur", offline)
-            // window.removeEventListener("beforeUnload", logout)
+            window.removeEventListener("beforeUnload", offline)
         })
 
         // eslint-disable-next-line
