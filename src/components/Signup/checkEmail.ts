@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";  
 import axios from "axios"
+import { endpoint } from "../apiCalls/ENDPOINT";
 
 async function checkEmail(email: string): Promise<boolean> {
     if(!email) {
@@ -10,7 +11,7 @@ async function checkEmail(email: string): Promise<boolean> {
         if (email.match(valid)) {
             try {
                 const response = await axios.post(
-                    "http://localhost:5000/chat-mate-api/email",
+                    endpoint+"/chat-mate-api/email",
                     {
                         email: email
                     },

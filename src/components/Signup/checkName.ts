@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";  
 import axios from "axios"
+import { endpoint } from "../apiCalls/ENDPOINT";
 
 async function checkName(name: string) {
     if(!name) {
@@ -8,7 +9,7 @@ async function checkName(name: string) {
     }
     try {
         const response = await axios.post(
-            "http://localhost:5000/chat-mate-api/name",
+            endpoint+"/chat-mate-api/name",
             {
                 name: name
             },
