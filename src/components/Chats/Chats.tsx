@@ -138,6 +138,8 @@ const Chats: React.FC<Props> = ({ showUserInfo, showGroupInfo, socket }) => {
 	}
 
 	async function sendMessage(message: string) {
+		if(messageLoading) return
+		if(message === "") return
 		setMessageLoading(true);
 		const result = await updateConversationRequest(
 			selectedConversation?._id as string,
@@ -301,7 +303,7 @@ const Chats: React.FC<Props> = ({ showUserInfo, showGroupInfo, socket }) => {
 						}}
 					></input>
 					<span style={{ fontSize: "0.9rem", color: "grey" }}>
-						{99 - message.length}
+						{50 - message.length}
 					</span>
 					<div className="send" onClick={() => sendMessage(message)}>
 						{!messageLoading && <i className="fa-solid fa-paper-plane"></i>}
