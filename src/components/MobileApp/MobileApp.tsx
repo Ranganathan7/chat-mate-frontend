@@ -6,6 +6,9 @@ export const MobileApp: React.FC = () => {
         <div className="mobile-app">
             <img className="image" src="/images/mobile-app.gif" alt="mobile-app"/>
             <p className="text">
+                <b>Sorry, this website can be accessed from desktop / laptop devices only!</b>
+            </p>
+            <p className="text">
                 Don't worry, I'm in the process of learning React Native and developing a mobile app
                 to ensure optimal viewing on all devices.
             </p>
